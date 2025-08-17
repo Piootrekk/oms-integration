@@ -1,0 +1,23 @@
+{
+  "name": "cronworker",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev:worker": "ts-node worker/src/index.ts",
+    "build": "tsc",
+    "start:worker": "node worker/dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "idosell": "^0.3.17"
+  }
+}
