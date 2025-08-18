@@ -7,17 +7,24 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev:worker": "ts-node worker/src/index.ts",
-    "build": "tsc",
-    "start:worker": "node worker/dist/index.js"
+    "dev:api": "ts-node app/api/src/index.ts",
+    "dev:worker": "ts-node app/worker/src/index.ts",
+    "build": "tsc --build",
+    "build:api": "tsc --project api",
+    "build:worker": "tsc --project worker",
+    "start:api": "node app/api/dist/index.js",
+    "start:worker": "node app/worker/dist/index.js"
   },
   "devDependencies": {
+    "@types/express": "^5.0.3",
     "@types/node": "^24.3.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
   "dependencies": {
     "dotenv": "^17.2.1",
-    "idosell": "^0.3.17"
+    "express": "^5.1.0",
+    "idosell": "^0.3.17",
+    "mongodb": "^6.18.0"
   }
 }

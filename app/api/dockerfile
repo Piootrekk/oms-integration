@@ -1,0 +1,15 @@
+FROM node:23-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY app/api ./app/api
+COPY tsconfig.json ./
+COPY app/api/tsconfig.json ./app/api/
+
+RUN npm run build:api
+
+CMD ["npm", "start:api"]

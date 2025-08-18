@@ -1,0 +1,15 @@
+FROM node:23-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY app/worker ./app/worker
+COPY tsconfig.json ./
+COPY app/worker/tsconfig.json ./app/worker/
+
+RUN npm run build:worker
+
+CMD ["npm", "start:worker"]
