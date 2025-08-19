@@ -5,7 +5,7 @@ const createGatewayInstance = (idosellApiKey: string, idosellUrl: string) => {
   return idosellInstance;
 };
 
-const getSearchOrders = async (
+const getOrders = async (
   gateway: Gateways,
   serialNumber: number | number[]
 ) => {
@@ -15,20 +15,13 @@ const getSearchOrders = async (
   return ordersSearch;
 };
 
-const postSearchOrders = async (gateway: Gateways) => {
-  const osada = gateway.searchOrders;
-};
-
-const getReturn = (gateway: Gateways) => {
-  const getReturnsRequest = gateway.getReturns
-    .dates("2023-12-01", Date.now(), "date_add")
-    .page(0, 10);
-};
-
-const searchOrders = (gateway: Gateways) => {
-  const searchedOrders = gateway.searchOrders
-    .dates(Date.now() - 86400000, Date.now(), "modified")
+const searchOrders = async (gateway: Gateways) => {
+  const searchedOrders = await gateway.searchOrders
+    .setParams({
+      params: { orderPrepaidStatus: "orderPrepaidStatus" },
+    })
     .exec();
+  return searchedOrders;
 };
 
-export { createGatewayInstance, getSearchOrders };
+export { createGatewayInstance, getOrders, searchOrders };

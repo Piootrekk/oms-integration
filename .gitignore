@@ -64,3 +64,4 @@ dist-ssr
 
 .env
 mongodb-data
+.api
