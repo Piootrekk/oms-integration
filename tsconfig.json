@@ -1,4 +1,8 @@
 {
   "files": [],
-  "references": [{ "path": "./app/api" }, { "path": "./app/worker" }]
+  "references": [
+    { "path": "./app/api" },
+    { "path": "./app/worker" },
+    { "path": "./app/share" }
+  ]
 }

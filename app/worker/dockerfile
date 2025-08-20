@@ -9,6 +9,7 @@ RUN npm install
 COPY app/worker ./app/worker
 COPY tsconfig.json ./
 COPY app/worker/tsconfig.json ./app/worker/
+COPY app/share/mongo-lib ./app/share/mongo-lib
 
 RUN npm run build:worker
 

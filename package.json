@@ -1,14 +1,14 @@
 {
-  "name": "cronworker",
+  "name": "shop-orders",
   "version": "1.0.0",
   "description": "",
-  "license": "ISC",
-  "author": "",
+  "license": "UNLICENSED",
+  "author": "Piotr Wilkowiecki",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev:api": "ts-node app/api/src/index.ts",
-    "dev:worker": "ts-node app/worker/src/index.ts",
+    "dev:api": "nodemon -r tsconfig-paths/register -P app/api/tsconfig.json app/api/src/index.ts",
+    "dev:worker": "ts-node -r tsconfig-paths/register -P app/worker/tsconfig.json app/worker/src/index.ts",
     "build": "tsc --build",
     "build:api": "tsc --project api",
     "build:worker": "tsc --project worker",
@@ -18,13 +18,17 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.3.0",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "cron": "^4.3.3",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "idosell": "^0.3.17",
     "mongodb": "^6.18.0"
-  }
+  },
+  "packageManager": "npm@11.5.2"
 }

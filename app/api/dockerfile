@@ -9,7 +9,7 @@ RUN npm install
 COPY app/api ./app/api
 COPY tsconfig.json ./
 COPY app/api/tsconfig.json ./app/api/
-
+COPY app/share/mongo-lib ./app/share/mongo-lib
 RUN npm run build:api
 
 CMD ["npm", "start:api"]

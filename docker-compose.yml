@@ -2,13 +2,13 @@ version: "3.9"
 services:
   mongo_db:
     image: mongo:latest
-    container_name: mongo_db
+    container_name: orders_mongo_db
     ports:
       - "${MONGO_PORT:-27017}:27017"
     volumes:
-      - ./db/mongodb-data:/data/db
+      - ./mongodb-data:/data/db
     environment:
-      - MONGO_INITDB_DATABASE=${DB_NAME:-mydb}
+      - MONGO_INITDB_DATABASE=${DB_NAME:-idosell}
       - MONGO_INITDB_ROOT_USERNAME=${DB_USER:-root}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD:-root}
     restart: always

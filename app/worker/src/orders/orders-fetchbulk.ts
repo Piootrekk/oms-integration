@@ -13,9 +13,9 @@ const isLastPage = (resLenght: number, pageSize: number) => {
   return resLenght === 0 || resLenght < pageSize;
 };
 
-const logChunk = (pageIndex: number, size: number) => {
-  console.log(`Page ${pageIndex}: requested serials`);
-  console.log(`Page ${pageIndex}: fetched ${size} orders`);
+const logChunk = (index: number, pageSize: number, responseSize: number) => {
+  console.log(`Page ${index}-${pageSize}: requested serials`);
+  console.log(`Fetched ${responseSize} orders success`);
 };
 
 const fetchAllChunksOfOrders = async (
@@ -30,9 +30,9 @@ const fetchAllChunksOfOrders = async (
     const serialChunk = generateChunkSerialNumbers(currentStartIndex, pageSize);
     const orders = await getOrders(gateway, serialChunk);
     callBackData(orders);
-    logChunk(currentPage, orders.Results.length);
     currentPage++;
     if (isLastPage(orders.Results.length, pageSize)) hasMoreResults = false;
+    logChunk(currentStartIndex, pageSize, orders.Results.length);
   }
 };
 

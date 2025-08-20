@@ -65,3 +65,4 @@ dist-ssr
 .env
 mongodb-data
 .api
+tsconfig.tsbuildinfo

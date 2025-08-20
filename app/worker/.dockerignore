@@ -20,4 +20,4 @@ build/
 *.swp
 *.swo
 test*.json
-market-history*.json
+tsconfig.tsbuildinfo

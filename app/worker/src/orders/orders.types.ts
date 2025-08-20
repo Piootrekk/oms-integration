@@ -2,7 +2,7 @@ type OrdersData = {
   orderId: string;
   price: number;
   products: Product[];
-  status?: string;
+  status: string;
 };
 type Product = {
   productId: number;

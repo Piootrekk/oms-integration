@@ -3,13 +3,15 @@
     "module": "nodenext",
     "declaration": true,
     "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2023",
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@db/*": ["../share/mongo-lib/*"]
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
@@ -20,6 +22,7 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true
   },
+  "references": [{ "path": "../share" }],
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

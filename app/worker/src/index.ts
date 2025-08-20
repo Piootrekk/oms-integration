@@ -1,7 +1,6 @@
 import { getAllOrders } from "./orders";
-
 const mainExec = async () => {
-  const ids = (await getAllOrders()).sort();
+  const ids = (await getAllOrders()).sort((a, b) => a - b);
   console.log(JSON.stringify({ ids }));
 };
 
