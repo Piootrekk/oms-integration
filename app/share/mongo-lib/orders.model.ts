@@ -4,6 +4,7 @@ type OrderData = {
   orderId: string;
   orderSerialNumber: number;
   price: number;
+  currency: string;
   products: Product[];
   status: string;
 };

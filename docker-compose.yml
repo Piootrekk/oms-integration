@@ -4,7 +4,7 @@ services:
     image: mongo:latest
     container_name: orders_mongo_db
     ports:
-      - "${MONGO_PORT:-27017}:27017"
+      - "27017:27017"
     volumes:
       - ./mongodb-data:/data/db
     environment:
@@ -18,7 +18,7 @@ services:
       dockerfile: app/api/dockerfile
     image: api:latest
     ports:
-      - "${API_PORT}:3000"
+      - "3000:3000"
     environment:
       - NODE_ENV=production
   worker:

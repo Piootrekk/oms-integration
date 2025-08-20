@@ -1,5 +1,8 @@
 import { getIdoSellApiKey, getIdosellUrl } from "../env";
-import { createGatewayInstance } from "./idosell-gateway";
+import {
+  createGatewayInstance,
+  searchOrdersByDateRange,
+} from "./idosell-gateway";
 import { fetchAllChunksOfOrders } from "./orders-fetchbulk";
 import { getDbConnection } from "@db/connection";
 const getAllOrders = async () => {
@@ -7,13 +10,13 @@ const getAllOrders = async () => {
   const idosellUrl = getIdosellUrl();
   const gatewayInstance = createGatewayInstance(idosellApiKey, idosellUrl);
 
-  const allIds: number[] = [];
-  const pageSize = 100;
-  await fetchAllChunksOfOrders(gatewayInstance, pageSize, (orders) =>
-    allIds.push(...orders.Results.map((result) => result.orderSerialNumber))
+  const resp = await searchOrdersByDateRange(
+    gatewayInstance,
+    "2025-08-20 7:00:00",
+    "2025-08-20 18:00:00"
   );
-  console.log(getDbConnection);
-  return allIds;
+  const allItems = resp.Results;
+  return allItems;
 };
 
 export { getAllOrders };

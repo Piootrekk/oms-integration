@@ -14,4 +14,23 @@ const getIdoSellApiKey = () => {
   return IDOSELL_API_KEY;
 };
 
-export { getIdoSellApiKey, getIdosellUrl };
+const getDBConnectionString = () => {
+  const { DB_CONNECTION_STRING } = process.env;
+  if (!DB_CONNECTION_STRING)
+    throw new Error("DB_CONNECTION_STRING not found in .env");
+  return DB_CONNECTION_STRING;
+};
+
+const getCronJobString = () => {
+  const { WORKER_CRONJOB_STRING } = process.env;
+  if (!WORKER_CRONJOB_STRING)
+    throw new Error("WORKER_CRONJOB_STRING not found in .env");
+  return WORKER_CRONJOB_STRING;
+};
+
+export {
+  getIdoSellApiKey,
+  getIdosellUrl,
+  getDBConnectionString,
+  getCronJobString,
+};

@@ -1,4 +1,5 @@
 import idosell, { Gateways } from "idosell";
+import { DateLike } from "idosell/dist/app";
 
 const createGatewayInstance = (idosellApiKey: string, idosellUrl: string) => {
   const idosellInstance = idosell(idosellUrl, idosellApiKey);
@@ -15,13 +16,43 @@ const getOrders = async (
   return ordersSearch;
 };
 
-const searchOrders = async (gateway: Gateways) => {
+// const searchOrders = async (gateway: Gateways) => {
+//   const searchedOrders = await gateway.searchOrders
+//     .setParams({
+//       params: { orderPrepaidStatus: "orderPrepaidStatus" },
+//     })
+//     .exec();
+//   return searchedOrders;
+// };
+
+// const searchOrdersTest = async (
+//   gateway: Gateways,
+//   dateConfirmedFrom: DateLike,
+//   dateConfirmedTo: DateLike
+// ) => {
+//   const searchParams = {
+//     ordersRange: { dateConfirmedFrom, dateConfirmedTo },
+//     resultsPage: 0,
+//     resultsLimit: 100,
+//   };
+//   const searchedOrders = await gateway.searchOrders
+//     .setParams({
+//       params: searchParams,
+//     })
+//     .exec();
+//   return searchedOrders;
+// };
+
+const searchOrdersByDateRange = async (
+  gateway: Gateways,
+  dateConfirmedFrom: DateLike,
+  dateConfirmedTo: DateLike
+) => {
   const searchedOrders = await gateway.searchOrders
-    .setParams({
-      params: { orderPrepaidStatus: "orderPrepaidStatus" },
-    })
+    .dates(dateConfirmedFrom, dateConfirmedTo, "add")
     .exec();
+
   return searchedOrders;
 };
 
-export { createGatewayInstance, getOrders, searchOrders };
+export { createGatewayInstance, getOrders, searchOrdersByDateRange };
