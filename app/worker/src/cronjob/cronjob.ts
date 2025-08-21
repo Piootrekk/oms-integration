@@ -10,16 +10,30 @@ const validateCronJobString = (cronjobSring: string) => {
 };
 
 const getIntervalTick = (cronJob: CronJob) => {
-  const diffDuration = cronJob.nextDate().diffNow().get("second");
-  return diffDuration;
+  const diffInterval = cronJob.nextDate().diffNow().as("milliseconds");
+  return diffInterval;
 };
 
-const startCronJob = async (cronjobSring: string) => {
+const getDatesRage = (cronJob: CronJob) => {
+  const intervalTickInMs = getIntervalTick(cronJob);
+  const currentDate = new Date();
+  const dateBefore = new Date(Date.now() - intervalTickInMs);
+  return { currentDate, dateBefore };
+};
+
+const getStringifyDate = (currentDate: Date, dateBefore: Date) => {
+  const stringifyCurrentDate = currentDate.toLocaleString();
+  const stringifyDateBefore = dateBefore.toLocaleString();
+
+  return { currentDate: stringifyCurrentDate, dateBefore: stringifyDateBefore };
+};
+
+const startCronJob = (cronjobSring: string, onTick: () => Promise<void>) => {
   const cronJob = CronJob.from({
     cronTime: cronjobSring,
-    onTick: async () => {},
+    onTick: onTick,
   });
   return cronJob;
 };
 
-export { startCronJob, validateCronJobString, getIntervalTick };
+export { startCronJob, validateCronJobString, getDatesRage, getStringifyDate };

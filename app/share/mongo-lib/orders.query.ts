@@ -11,11 +11,24 @@ const clearAllOrdersDocs = async (db: Db) => {
 const insertBulkOrders = async (db: Db, orders: OrderData[]) => {
   const collection = db.collection<OrderDataModel>(ORDERS_COLLECTION_NAME);
   await collection.insertMany(orders);
+  console.log(`Added ${orders.length} to DB`);
 };
 
-const getAmoutDocsFromCollection = async (db: Db) => {
+const getCountDocsFromOrders = async (db: Db) => {
   const collection = db.collection(ORDERS_COLLECTION_NAME);
   return await collection.countDocuments();
 };
 
-export { insertBulkOrders, getAmoutDocsFromCollection, clearAllOrdersDocs };
+const isEmptyOrders = async (db: Db) => {
+  const collection = db.collection(ORDERS_COLLECTION_NAME);
+  const count = await collection.countDocuments();
+  if (count > 0) return false;
+  return true;
+};
+
+export {
+  insertBulkOrders,
+  getCountDocsFromOrders,
+  clearAllOrdersDocs,
+  isEmptyOrders,
+};

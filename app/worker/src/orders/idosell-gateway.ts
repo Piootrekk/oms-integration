@@ -1,6 +1,8 @@
 import idosell, { Gateways } from "idosell";
 import { DateLike } from "idosell/dist/app";
 
+const RESULTS_NUMBER_ALL_LIMIT = 100;
+
 const createGatewayInstance = (idosellApiKey: string, idosellUrl: string) => {
   const idosellInstance = idosell(idosellUrl, idosellApiKey);
   return idosellInstance;
@@ -10,38 +12,11 @@ const getOrders = async (
   gateway: Gateways,
   serialNumber: number | number[]
 ) => {
-  const ordersSearch = await gateway.getOrders
+  const ordersQuery = await gateway.getOrders
     .ordersSerialNumbers(serialNumber)
     .exec();
-  return ordersSearch;
+  return ordersQuery;
 };
-
-// const searchOrders = async (gateway: Gateways) => {
-//   const searchedOrders = await gateway.searchOrders
-//     .setParams({
-//       params: { orderPrepaidStatus: "orderPrepaidStatus" },
-//     })
-//     .exec();
-//   return searchedOrders;
-// };
-
-// const searchOrdersTest = async (
-//   gateway: Gateways,
-//   dateConfirmedFrom: DateLike,
-//   dateConfirmedTo: DateLike
-// ) => {
-//   const searchParams = {
-//     ordersRange: { dateConfirmedFrom, dateConfirmedTo },
-//     resultsPage: 0,
-//     resultsLimit: 100,
-//   };
-//   const searchedOrders = await gateway.searchOrders
-//     .setParams({
-//       params: searchParams,
-//     })
-//     .exec();
-//   return searchedOrders;
-// };
 
 const searchOrdersByDateRange = async (
   gateway: Gateways,
@@ -51,8 +26,26 @@ const searchOrdersByDateRange = async (
   const searchedOrders = await gateway.searchOrders
     .dates(dateConfirmedFrom, dateConfirmedTo, "add")
     .exec();
-
+  if (searchedOrders.resultsNumberAll > RESULTS_NUMBER_ALL_LIMIT)
+    throw new Error(
+      `Cannot handle more then ${RESULTS_NUMBER_ALL_LIMIT} per tick, reduce time range`
+    );
   return searchedOrders;
 };
 
-export { createGatewayInstance, getOrders, searchOrdersByDateRange };
+const searchAllAmountsOrders = async (gateway: Gateways) => {
+  const querySearch = await gateway.searchOrders
+    .resultsPage(1)
+    .resultsLimit(1)
+    .exec();
+  const ordersQuantity = querySearch.resultsNumberAll;
+  return ordersQuantity;
+};
+
+export {
+  createGatewayInstance,
+  getOrders,
+  searchOrdersByDateRange,
+  searchAllAmountsOrders,
+  RESULTS_NUMBER_ALL_LIMIT,
+};

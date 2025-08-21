@@ -1,9 +1,14 @@
-import { getAllOrders } from "./orders";
+import { insertAllOrders } from "./orders";
+
 const mainExec = async () => {
-  // const ids = (await getAllOrders()).sort();
-  const res = await getAllOrders();
+  await insertAllOrders();
+
+  // const ids = await getAllOrders();
+  // const sortedIds = ids.sort((a, b) => a - b);
+  // console.log(sortedIds);
   // console.log(JSON.stringify({ ids }));
-  console.log(JSON.stringify(res));
+  // console.log(JSON.stringify(res));
+  // runCronjob();
 };
 
 mainExec().catch((err: Error) => {
