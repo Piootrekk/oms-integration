@@ -14,7 +14,7 @@ const task = async (cronJob: CronJob) => {
 };
 
 const runCronjob = () => {
-  console.log("STARTING CRON JOB");
+  console.log("[Cronjob] STARTING CRON JOB");
   const cronjobString = getCronJobString();
   const validatedString = validateCronJobString(cronjobString);
   const cronjobInstance = startCronJob(validatedString, async () => {

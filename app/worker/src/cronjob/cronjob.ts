@@ -4,7 +4,7 @@ const validateCronJobString = (cronjobSring: string) => {
   const validated = validateCronExpression(cronjobSring);
   if (!validated.valid && validated.error)
     throw new Error(
-      `Validation error, incorrect cronjob string format. Message: ${validated.error.message}`
+      `[Cronjob] Validation error, incorrect cronjob string format. Message: ${validated.error.message}`
     );
   return cronjobSring;
 };

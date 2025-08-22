@@ -1,4 +1,4 @@
-import { insertAllOrders } from "./orders";
+import { insertAllOrders } from "./orders/all";
 
 const mainExec = async () => {
   await insertAllOrders();

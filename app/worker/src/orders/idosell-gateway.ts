@@ -20,11 +20,11 @@ const getOrders = async (
 
 const searchOrdersByDateRange = async (
   gateway: Gateways,
-  dateConfirmedFrom: DateLike,
-  dateConfirmedTo: DateLike
+  dateFrom: DateLike,
+  dateTo: DateLike
 ) => {
   const searchedOrders = await gateway.searchOrders
-    .dates(dateConfirmedFrom, dateConfirmedTo, "add")
+    .dates(dateFrom, dateTo, "add")
     .exec();
   if (searchedOrders.resultsNumberAll > RESULTS_NUMBER_ALL_LIMIT)
     throw new Error(
@@ -49,3 +49,5 @@ export {
   searchAllAmountsOrders,
   RESULTS_NUMBER_ALL_LIMIT,
 };
+
+export type { Gateways };
