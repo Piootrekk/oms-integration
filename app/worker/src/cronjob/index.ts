@@ -12,14 +12,14 @@ const logJobIteration = (iteration: number) => {
 const logDateRange = (currentDate: Date, dateBefore: Date) => {
   const stringifyDates = getStringifyDate(currentDate, dateBefore);
   console.log(
-    `[Cronjob] Time range: ${stringifyDates.dateBefore}-${stringifyDates.currentDate}`
+    `[Cronjob] Time range: ${stringifyDates.dateBefore} - ${stringifyDates.currentDate}`
   );
 };
 
 const runCronjob = async (
   task: (currentDate: Date, dateBefore: Date) => Promise<void>
 ) => {
-  console.log("[Cronjob] STARTING CRON JOB");
+  console.log("[Cronjob] CRON JOB STARTING...");
   const cronjobString = getCronJobString();
   let iteration = 1;
   const validatedString = validateCronJobString(cronjobString);

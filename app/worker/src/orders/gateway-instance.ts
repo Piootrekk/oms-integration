@@ -9,12 +9,3 @@ const getGatewayInstance = () => {
 };
 
 export { getGatewayInstance };
-
-// const resp = await searchOrdersByDateRange(
-//     gatewayInstance,
-//     "2025-08-19 0:00:01",
-//     "2025-08-20 00:00:00"
-//   );
-//   // const allItems = resp.resultsNumberAll;
-//   const ids = resp.Results.map((res) => res.orderSerialNumber);
-//   return ids;

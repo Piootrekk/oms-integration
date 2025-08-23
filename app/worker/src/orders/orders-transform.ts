@@ -3,7 +3,7 @@ import type {
   OrderBaseCurrency,
   OrderCurrency,
   OrderProduct,
-} from "../orders-external.types";
+} from "./orders-external.types";
 import type { Product, OrderData } from "@db/orders.model";
 
 const sumAllOrdersPayment = (payments: OrderBaseCurrency | OrderCurrency) => {
@@ -33,4 +33,9 @@ const transformOrderResults = (result: IdosellResponseResult): OrderData => {
   } satisfies OrderData;
 };
 
-export { transformOrderResults };
+const transformBulkOrdersResults = (results: IdosellResponseResult[]) => {
+  const transformedResults = results.map((res) => transformOrderResults(res));
+  return transformedResults;
+};
+
+export { transformOrderResults, transformBulkOrdersResults };

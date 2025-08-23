@@ -30,18 +30,28 @@ const getSearchRequestByDate = (
   return requestSearch;
 };
 
+const getSearchOrdersRequest = (gateway: Gateways) => {
+  const requestSearch = gateway.searchOrders.resultsLimit(100);
+  return requestSearch;
+};
+
+const getSerchRequestSelectedStatuses = (
+  gateway: Gateways,
+  statuses: string[]
+) => {
+  const querySearch = gateway.searchOrders
+    .ordersStatuses(statuses)
+    .resultsLimit(100);
+  return querySearch;
+};
+
 const searchAllAmountsOrders = async (gateway: Gateways) => {
   const querySearch = await gateway.searchOrders
-    .resultsPage(1)
+    .resultsPage(0)
     .resultsLimit(1)
     .exec();
   const ordersQuantity = querySearch.resultsNumberAll;
   return ordersQuantity;
-};
-
-const getSearchOrdersRequest = (gateway: Gateways) => {
-  const requestSearch = gateway.searchOrders.resultsLimit(100);
-  return requestSearch;
 };
 
 const fetchAllOrders = async (
@@ -57,13 +67,14 @@ const fetchAllOrders = async (
 };
 
 export {
+  RESULTS_NUMBER_ALL_LIMIT,
   createGatewayInstance,
   getOrders,
   getSearchOrdersRequest,
   getSearchRequestByDate,
   searchAllAmountsOrders,
-  RESULTS_NUMBER_ALL_LIMIT,
+  getSerchRequestSelectedStatuses,
   fetchAllOrders,
 };
 
-export type { Gateways };
+export type { Gateways, SearchOrdersResponse };

@@ -6,23 +6,21 @@ import {
   getSearchOrdersRequest,
 } from "./../idosell-gateway";
 import {
-  insertBulkOrders,
+  insertManyOrders,
   isEmptyOrders,
   clearAllOrdersDocs,
   getCountDocsFromOrders,
 } from "@db/orders.query";
 import { getDBConnectionString } from "src/env";
 import { handleErrorToMessage } from "src/utils/error-handler";
-import { transformOrderResults } from "./orders-transform";
-import { getGatewayInstance } from "../gatewayInstance";
+import { transformBulkOrdersResults } from "../orders-transform";
+import { getGatewayInstance } from "../gateway-instance";
 
 const manageAllFetchesToOrdersInsertion = async (db: Db, gateway: Gateways) => {
   const searchOrdersRequest = getSearchOrdersRequest(gateway);
   await fetchAllOrders(searchOrdersRequest, async (chunkOrders) => {
-    const transfomedOrders = chunkOrders.Results.map((result) =>
-      transformOrderResults(result)
-    );
-    await insertBulkOrders(db, transfomedOrders);
+    const orders = transformBulkOrdersResults(chunkOrders.Results);
+    await insertManyOrders(db, orders);
   });
 };
 

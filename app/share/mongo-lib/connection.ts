@@ -5,13 +5,11 @@ const getDbConnection = async (
 ): Promise<MongoClient> => {
   const client = new MongoClient(connectionString, {});
   await client.connect();
-  console.log("[DB] Connection Db successful");
   return client;
 };
 
 const disconectDb = async (client: MongoClient) => {
   await client.close();
-  console.log("[DB] Disconnection Db successful");
 };
 
 const dbSession = async (
