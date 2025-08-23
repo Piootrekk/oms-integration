@@ -1,5 +1,6 @@
-import idosell, { Gateways } from "idosell";
+import idosell, { Gateways, SearchOrdersRequest } from "idosell";
 import { DateLike } from "idosell/dist/app";
+import { SearchOrdersResponse } from "idosell/dist/responses";
 
 const RESULTS_NUMBER_ALL_LIMIT = 100;
 
@@ -18,19 +19,15 @@ const getOrders = async (
   return ordersQuery;
 };
 
-const searchOrdersByDateRange = async (
+const getSearchRequestByDate = (
   gateway: Gateways,
   dateFrom: DateLike,
   dateTo: DateLike
 ) => {
-  const searchedOrders = await gateway.searchOrders
+  const requestSearch = gateway.searchOrders
     .dates(dateFrom, dateTo, "add")
-    .exec();
-  if (searchedOrders.resultsNumberAll > RESULTS_NUMBER_ALL_LIMIT)
-    throw new Error(
-      `Cannot handle more then ${RESULTS_NUMBER_ALL_LIMIT} per tick, reduce time range`
-    );
-  return searchedOrders;
+    .resultsLimit(100);
+  return requestSearch;
 };
 
 const searchAllAmountsOrders = async (gateway: Gateways) => {
@@ -42,12 +39,31 @@ const searchAllAmountsOrders = async (gateway: Gateways) => {
   return ordersQuantity;
 };
 
+const getSearchOrdersRequest = (gateway: Gateways) => {
+  const requestSearch = gateway.searchOrders.resultsLimit(100);
+  return requestSearch;
+};
+
+const fetchAllOrders = async (
+  searchRequest: SearchOrdersRequest,
+  callback: (chunk: SearchOrdersResponse) => Promise<void>
+) => {
+  const fistChunk = await searchRequest.exec();
+  await callback(fistChunk);
+  while (searchRequest.hasNext()) {
+    const anotherFetch = await searchRequest.exec();
+    await callback(anotherFetch);
+  }
+};
+
 export {
   createGatewayInstance,
   getOrders,
-  searchOrdersByDateRange,
+  getSearchOrdersRequest,
+  getSearchRequestByDate,
   searchAllAmountsOrders,
   RESULTS_NUMBER_ALL_LIMIT,
+  fetchAllOrders,
 };
 
 export type { Gateways };

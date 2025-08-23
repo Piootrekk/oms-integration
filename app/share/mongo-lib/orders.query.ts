@@ -11,7 +11,7 @@ const clearAllOrdersDocs = async (db: Db) => {
 const insertBulkOrders = async (db: Db, ordersData: OrderData[]) => {
   const orders = db.collection<OrderDataModel>(ORDERS_COLLECTION_NAME);
   await orders.insertMany(ordersData);
-  console.log(`[DB] Added ${ordersData.length} to DB`);
+  console.log(`[DB] Added ${ordersData.length} orders to DB`);
 };
 
 const getCountDocsFromOrders = async (db: Db) => {

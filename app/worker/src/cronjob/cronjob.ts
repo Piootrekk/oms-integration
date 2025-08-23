@@ -28,10 +28,16 @@ const getStringifyDate = (currentDate: Date, dateBefore: Date) => {
   return { currentDate: stringifyCurrentDate, dateBefore: stringifyDateBefore };
 };
 
-const startCronJob = (cronjobSring: string, onTick: () => Promise<void>) => {
+const startCronJob = (
+  cronjobSring: string,
+  onTick: (currentDate: Date, dateBefore: Date) => Promise<void>
+) => {
   const cronJob = CronJob.from({
     cronTime: cronjobSring,
-    onTick: onTick,
+    onTick: async () => {
+      const dates = getDatesRage(cronJob);
+      await onTick(dates.currentDate, dates.dateBefore);
+    },
   });
   return cronJob;
 };

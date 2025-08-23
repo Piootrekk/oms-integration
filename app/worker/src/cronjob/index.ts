@@ -1,25 +1,37 @@
 import { getCronJobString } from "../env";
 import {
-  getDatesRage,
   getStringifyDate,
   startCronJob,
   validateCronJobString,
 } from "./cronjob";
-import { CronJob } from "cron";
 
-const task = async (cronJob: CronJob) => {
-  const dates = getDatesRage(cronJob);
-  const stringifyDates = getStringifyDate(dates.currentDate, dates.dateBefore);
-  console.log(stringifyDates);
+const logJobIteration = (iteration: number) => {
+  console.log(`[Cronjob] Starting job iteration: ${iteration}.`);
 };
 
-const runCronjob = () => {
+const logDateRange = (currentDate: Date, dateBefore: Date) => {
+  const stringifyDates = getStringifyDate(currentDate, dateBefore);
+  console.log(
+    `[Cronjob] Time range: ${stringifyDates.dateBefore}-${stringifyDates.currentDate}`
+  );
+};
+
+const runCronjob = async (
+  task: (currentDate: Date, dateBefore: Date) => Promise<void>
+) => {
   console.log("[Cronjob] STARTING CRON JOB");
   const cronjobString = getCronJobString();
+  let iteration = 1;
   const validatedString = validateCronJobString(cronjobString);
-  const cronjobInstance = startCronJob(validatedString, async () => {
-    await task(cronjobInstance);
-  });
+  const cronjobInstance = startCronJob(
+    validatedString,
+    async (currentDate, dateBefore) => {
+      logJobIteration(iteration);
+      logDateRange(currentDate, dateBefore);
+      await task(currentDate, dateBefore);
+      iteration++;
+    }
+  );
   cronjobInstance.start();
 };
 

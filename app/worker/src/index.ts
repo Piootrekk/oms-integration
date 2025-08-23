@@ -1,4 +1,6 @@
+import { runCronjob } from "./cronjob";
 import { insertAllOrders } from "./orders/all";
+import { getNewOrders } from "./orders/date-range";
 
 const mainExec = async () => {
   await insertAllOrders();
@@ -8,7 +10,9 @@ const mainExec = async () => {
   // console.log(sortedIds);
   // console.log(JSON.stringify({ ids }));
   // console.log(JSON.stringify(res));
-  // runCronjob();
+  await runCronjob(async (currentDate, dateBefore) => {
+    await getNewOrders(dateBefore, currentDate);
+  });
 };
 
 mainExec().catch((err: Error) => {
