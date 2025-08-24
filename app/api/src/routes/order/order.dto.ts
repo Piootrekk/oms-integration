@@ -1,0 +1,27 @@
+import { OrderDataModel } from "@db/orders.model";
+
+type OrderDto = {
+  orderId: string;
+  price: number;
+  pruducts: string;
+};
+
+const transformOrderDto = (order: OrderDataModel) => {
+  const productsSerialized = order.products
+    .map((p) => `(${p.productId}:${p.quantity})`)
+    .join(",");
+  const orderDto = {
+    orderId: order.orderId,
+    price: order.price,
+    pruducts: productsSerialized,
+  } satisfies OrderDto;
+  return orderDto;
+};
+
+const transformOrdersDto = (orders: OrderDataModel[]): OrderDto[] => {
+  const ordersDto = orders.map((order) => transformOrderDto(order));
+  return ordersDto;
+};
+
+export { transformOrderDto, transformOrdersDto };
+export type { OrderDto };

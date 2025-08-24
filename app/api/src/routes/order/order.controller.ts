@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
-import { ordersByWorthService, parseOrderRangeFilters } from "./order.service";
-import { IdParamDics, WorthQueryParam } from "./order.types";
+import {
+  orderByIdService,
+  ordersByWorthService,
+  parseOrderRangeFilters,
+  parsedOrderIdFilters,
+} from "./order.service";
+import { IdParamDict, WorthQueryParam } from "./order.types";
 
 const getOrderByWorthRangeController = async (
   request: Request<unknown, unknown, unknown, WorthQueryParam>,
@@ -9,7 +14,7 @@ const getOrderByWorthRangeController = async (
   try {
     const { minWorth, maxWorth, currency } = request.query;
     const convertedProps = parseOrderRangeFilters(minWorth, maxWorth, currency);
-    const ordersInCSV = ordersByWorthService(
+    const ordersInCSV = await ordersByWorthService(
       convertedProps.currency,
       convertedProps.minWorth,
       convertedProps.maxWorth
@@ -17,13 +22,14 @@ const getOrderByWorthRangeController = async (
   } catch (err) {}
 };
 
-const getOrderByIdController = (
-  request: Request<IdParamDics>,
+const getOrderByIdController = async (
+  request: Request<IdParamDict>,
   response: Response
 ) => {
   try {
     const { orderId } = request.params;
-    const parsedId = parseOrderRangeFilters(orderId);
+    const parsedId = parsedOrderIdFilters(orderId);
+    const currentOrderInCSV = await orderByIdService(parsedId);
   } catch (err) {}
 };
 

@@ -1,5 +1,5 @@
 import { getDbInstance } from "./../../config/db";
-import { getOrdersByPriceRange } from "@db/orders.query";
+import { getOrderById, getOrdersByPriceRange } from "@db/orders.query";
 
 const ordersRangeRepository = async (
   currency: string,
@@ -16,4 +16,10 @@ const ordersRangeRepository = async (
   return rangedOrders;
 };
 
-export { ordersRangeRepository };
+const orderByIdRepository = async (orderId: string) => {
+  const db = getDbInstance();
+  const currentOrder = await getOrderById(db, orderId);
+  return currentOrder;
+};
+
+export { ordersRangeRepository, orderByIdRepository };

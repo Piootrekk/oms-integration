@@ -101,6 +101,15 @@ const updateOrdersWithNewState = async (
   logUpdate(updated.modifiedCount);
 };
 
+const getOrderById = async (db: Db, orderId: string) => {
+  const collection = db.collection<OrderDataModel>(ORDERS_COLLECTION_NAME);
+  const filter = {
+    orderId: orderId,
+  } satisfies Filter<OrderDataModel>;
+  const currentOrder = await collection.findOne(filter);
+  return currentOrder;
+};
+
 export {
   insertManyOrders,
   getCountDocsFromOrders,
@@ -110,4 +119,5 @@ export {
   getOrdersByIds,
   updateOrdersWithNewState,
   getOrdersByPriceRange,
+  getOrderById,
 };

@@ -4,8 +4,8 @@ type WorthQueryParam = {
   currency?: string;
 };
 
-type IdParamDics = {
+type IdParamDict = {
   orderId?: string;
 };
 
-export type { WorthQueryParam, IdParamDics };
+export type { WorthQueryParam, IdParamDict };
