@@ -1,4 +1,4 @@
-import { BulkWriteOptions, Db, Filter, UpdateOneModel } from "mongodb";
+import { Db, Filter, UpdateOneModel } from "mongodb";
 import { OrderData, OrderDataModel } from "./orders.model";
 
 const ORDERS_COLLECTION_NAME = "orders";
@@ -63,6 +63,24 @@ const getOrdersByIds = async (db: Db, orderId: string[]) => {
   return ordersDocs;
 };
 
+const getOrdersByPriceRange = async (
+  db: Db,
+  currency: string,
+  minWorth?: number,
+  maxPrice?: number
+) => {
+  const orders = db.collection<OrderDataModel>(ORDERS_COLLECTION_NAME);
+  const filter = {
+    price: {
+      $gte: minWorth,
+      $lte: maxPrice,
+    },
+    currency: currency,
+  } satisfies Filter<OrderDataModel>;
+  const ordersDocs = await orders.find(filter).toArray();
+  return ordersDocs;
+};
+
 const updateOrdersWithNewState = async (
   db: Db,
   newOrdersProps: Pick<OrderData, "orderId" | "status">[]
@@ -91,4 +109,5 @@ export {
   getSelectedOrdersByStatuses,
   getOrdersByIds,
   updateOrdersWithNewState,
+  getOrdersByPriceRange,
 };

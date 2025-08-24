@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "module": "nodenext",
-    "declaration": true,
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2023",
@@ -10,7 +9,7 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
-      "@db/*": ["../share/share-lib/*"]
+      "@db/*": ["../share/mongo-lib/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

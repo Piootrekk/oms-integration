@@ -9,8 +9,8 @@
     "dev:api": "nodemon -r tsconfig-paths/register -P app/api/tsconfig.json app/api/src/index.ts",
     "dev:worker": "ts-node -r tsconfig-paths/register -P app/worker/tsconfig.json app/worker/src/index.ts",
     "build": "tsc --build",
-    "build:api": "tsc --project api",
-    "build:worker": "tsc --project worker",
+    "build:api": "tsc --project app/api",
+    "build:worker": "tsc --project app/worker",
     "start:api": "node app/api/dist/index.js",
     "start:worker": "node app/worker/dist/index.js"
   },

@@ -26,4 +26,4 @@ const dbSession = async (
 };
 
 export { getDbConnection, disconectDb, dbSession };
-export type { Db };
+export type { Db, MongoClient };

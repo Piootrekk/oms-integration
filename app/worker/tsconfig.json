@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "module": "nodenext",
-    "declaration": true,
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2023",
@@ -17,8 +16,8 @@
     "strictNullChecks": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": true,
-    "strictBindCallApply": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": true,
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true
   },

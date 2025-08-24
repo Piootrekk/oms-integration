@@ -58,7 +58,7 @@ const manageOrdersForUpdate = async (
   dbString: string
 ) => {
   const idsOrdersFromGateway = chunkOrders.Results.map((res) => res.orderId);
-  dbSession(dbString, async (db) => {
+  await dbSession(dbString, async (db) => {
     const ordersFromDb = await getOrdersByIds(db, idsOrdersFromGateway);
     const newStatusesOrders = getOrdersDtoWithNewStatuses(
       chunkOrders.Results,

@@ -9,6 +9,8 @@
     "composite": true,
     "incremental": true,
     "skipLibCheck": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
     "strictNullChecks": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,5 +19,6 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true
   },
+
   "include": ["mongo-lib/**/*"]
 }
