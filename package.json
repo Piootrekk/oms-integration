@@ -6,7 +6,7 @@
   "author": "Piotr Wilkowiecki",
   "type": "commonjs",
   "scripts": {
-    "dev:api": "nodemon -r tsconfig-paths/register -P app/api/tsconfig.json app/api/src/index.ts",
+    "dev:api": "ts-node -r tsconfig-paths/register -P app/api/tsconfig.json app/api/src/index.ts",
     "dev:worker": "ts-node -r tsconfig-paths/register -P app/worker/tsconfig.json app/worker/src/index.ts",
     "build": "tsc --build",
     "build:api": "tsc --project app/api",

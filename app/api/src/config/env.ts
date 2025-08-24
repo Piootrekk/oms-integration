@@ -9,4 +9,10 @@ const getDBConnectionString = () => {
   return DB_CONNECTION_STRING;
 };
 
-export { getDBConnectionString };
+const getApiKey = () => {
+  const { API_KEY } = process.env;
+  if (!API_KEY) throw new Error("API_KEY not found in .env");
+  return API_KEY;
+};
+
+export { getDBConnectionString, getApiKey };

@@ -6,6 +6,7 @@ import {
   parsedOrderIdFilters,
 } from "./order.service";
 import { IdParamDict, WorthQueryParam } from "./order.types";
+import { handeError } from "src/utils/error-handler";
 
 const getOrderByWorthRangeController = async (
   request: Request<unknown, unknown, unknown, WorthQueryParam>,
@@ -19,7 +20,11 @@ const getOrderByWorthRangeController = async (
       convertedProps.minWorth,
       convertedProps.maxWorth
     );
-  } catch (err) {}
+    response.status(200).send(ordersInCSV);
+  } catch (err) {
+    const error = handeError(err);
+    response.status(error.status).send(error.message);
+  }
 };
 
 const getOrderByIdController = async (
@@ -30,7 +35,11 @@ const getOrderByIdController = async (
     const { orderId } = request.params;
     const parsedId = parsedOrderIdFilters(orderId);
     const currentOrderInCSV = await orderByIdService(parsedId);
-  } catch (err) {}
+    response.status(200).send(currentOrderInCSV);
+  } catch (err) {
+    const error = handeError(err);
+    response.status(error.status).send(error.message);
+  }
 };
 
 export { getOrderByWorthRangeController, getOrderByIdController };

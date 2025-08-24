@@ -3,7 +3,11 @@ import { Db, MongoClient } from "mongodb";
 const getDbConnection = async (
   connectionString: string
 ): Promise<MongoClient> => {
-  const client = new MongoClient(connectionString, {});
+  const client = new MongoClient(connectionString, {
+    connectTimeoutMS: 10000,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 50000,
+  });
   await client.connect();
   return client;
 };

@@ -64,7 +64,6 @@ const dataRows = (
     if (!record || typeof record !== "object") {
       return headers.map(() => "").join(delimiter);
     }
-
     return headers
       .map((header) => escapeCSVField(String(record[header] ?? ""), delimiter))
       .join(delimiter);
