@@ -4,7 +4,7 @@ const validateCronJobString = (cronjobSring: string) => {
   const validated = validateCronExpression(cronjobSring);
   if (!validated.valid && validated.error)
     throw new Error(
-      `[Cronjob] Validation error, incorrect cronjob string format. Message: ${validated.error.message}`
+      `[Cronjob] Validation error, incorrect cronjob string format. Message: ${validated.error.message}`,
     );
   return cronjobSring;
 };
@@ -30,7 +30,7 @@ const getStringifyDate = (currentDate: Date, dateBefore: Date) => {
 
 const startCronJob = (
   cronjobSring: string,
-  onTick: (currentDate: Date, dateBefore: Date) => Promise<void>
+  onTick: (currentDate: Date, dateBefore: Date) => Promise<void>,
 ) => {
   const cronJob = CronJob.from({
     cronTime: cronjobSring,
@@ -42,4 +42,10 @@ const startCronJob = (
   return cronJob;
 };
 
-export { startCronJob, validateCronJobString, getDatesRage, getStringifyDate };
+export {
+  startCronJob,
+  getIntervalTick,
+  validateCronJobString,
+  getDatesRage,
+  getStringifyDate,
+};
