@@ -49,3 +49,4 @@ const authMiddleware = (
 };
 
 export { authMiddleware };
+export { extractUserKeyFromBearer, isKey, isCorrectKey };
