@@ -5,13 +5,13 @@ import {
   getSearchRequestByDate,
   type SearchOrdersResponse,
 } from "../idosell-gateway";
-import { getDBConnectionString } from "src/env";
+import { getDBConnectionString } from "../../env";
 import { transformBulkOrdersResults } from "../orders-transform";
 import { insertManyOrders } from "@db/orders.query";
 
 const manageNewOrders = async (
   chunkOrders: SearchOrdersResponse,
-  dbString: string
+  dbString: string,
 ) => {
   await dbSession(dbString, async (db) => {
     const orders = transformBulkOrdersResults(chunkOrders.Results);

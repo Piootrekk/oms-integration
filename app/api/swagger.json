@@ -26,13 +26,13 @@
     }
   ],
   "paths": {
-    "/api/v1/order/{id}": {
+    "/api/v1/order/{orderId}": {
       "get": {
         "tags": ["Orders"],
         "summary": "Get order by ID",
         "parameters": [
           {
-            "name": "id",
+            "name": "orderId",
             "in": "path",
             "required": true,
             "schema": {

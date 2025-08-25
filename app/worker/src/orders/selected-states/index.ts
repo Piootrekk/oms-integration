@@ -1,4 +1,4 @@
-import { getDBConnectionString } from "src/env";
+import { getDBConnectionString } from "./../../env";
 import { getGatewayInstance } from "../gateway-instance";
 import {
   fetchAllOrders,
@@ -8,7 +8,7 @@ import {
 import { getOrdersByIds, updateOrdersWithNewState } from "@db/orders.query";
 import { dbSession } from "@db/connection";
 import { getOrdersDtoWithNewStatuses } from "./compare";
-import { handleErrorToMessage } from "src/utils/error-handler";
+import { handleErrorToMessage } from "./../../utils/error-handler";
 import { OrderDto } from "./compare.types";
 
 const SELECTED_STATUSES = ["missing", "false", "finished", "canceled"];
@@ -29,7 +29,7 @@ const ALL_STATES = [
 ];
 
 const STATES_FOR_UPDATE = ALL_STATES.filter(
-  (state) => !SELECTED_STATUSES.includes(state)
+  (state) => !SELECTED_STATUSES.includes(state),
 );
 
 const isNothingUpdated = (newOrders: OrderDto[]) => {
@@ -42,10 +42,10 @@ const isNothingUpdated = (newOrders: OrderDto[]) => {
 const logUpdateState = (
   orderid: string,
   oldStatus: string,
-  newStatus: string
+  newStatus: string,
 ) => {
   console.log(
-    `[Update] Order nr: ${orderid} changes status: ${oldStatus} -> ${newStatus}`
+    `[Update] Order nr: ${orderid} changes status: ${oldStatus} -> ${newStatus}`,
   );
 };
 
@@ -55,19 +55,19 @@ const logError = (err: unknown) => {
 
 const manageOrdersForUpdate = async (
   chunkOrders: SearchOrdersResponse,
-  dbString: string
+  dbString: string,
 ) => {
   const idsOrdersFromGateway = chunkOrders.Results.map((res) => res.orderId);
   await dbSession(dbString, async (db) => {
     const ordersFromDb = await getOrdersByIds(db, idsOrdersFromGateway);
     const newStatusesOrders = getOrdersDtoWithNewStatuses(
       chunkOrders.Results,
-      ordersFromDb
+      ordersFromDb,
     );
     if (isNothingUpdated(newStatusesOrders)) return;
     await updateOrdersWithNewState(db, newStatusesOrders);
     newStatusesOrders.forEach(({ orderId, status, oldStatus }) =>
-      logUpdateState(orderId, oldStatus, status)
+      logUpdateState(orderId, oldStatus, status),
     );
   });
 };
@@ -77,7 +77,7 @@ const getOrdersForUpdate = async () => {
   const dbString = getDBConnectionString();
   const ordersRequestWithStatuses = getSerchRequestSelectedStatuses(
     gateway,
-    STATES_FOR_UPDATE
+    STATES_FOR_UPDATE,
   );
   try {
     await fetchAllOrders(ordersRequestWithStatuses, async (chunk) => {

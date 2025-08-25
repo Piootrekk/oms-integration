@@ -10,12 +10,12 @@ const checkObjectNested = (data: DataRecord, headers: string[]) => {
     const inspectedProp = data[header];
     if (Array.isArray(inspectedProp)) {
       throw new Error(
-        `Property '${header}' contains nested array, please transform it`
+        `Property '${header}' contains nested array, please transform it`,
       );
     }
     if (typeof inspectedProp === "object") {
       throw new Error(
-        `Property '${header}' contains nested object, please transform it`
+        `Property '${header}' contains nested object, please transform it`,
       );
     }
   });
@@ -58,7 +58,7 @@ const headerRow = (headers: string[], delimiter: string): string => {
 const dataRows = (
   data: DataRecord[],
   headers: string[],
-  delimiter: string
+  delimiter: string,
 ): string[] => {
   const datarows = data.map((record) => {
     if (!record) {
@@ -74,7 +74,7 @@ const dataRows = (
 
 const createCSV = (
   data: DataRecord | DataRecord[],
-  delimiter: string = ";"
+  delimiter: string = ";",
 ): string => {
   const correctData = convertToArray(data);
   emptyObject(correctData);

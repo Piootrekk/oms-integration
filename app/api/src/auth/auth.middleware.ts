@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from "express";
-import { getApiKey } from "src/config/env";
-import { CustomError, handeError } from "src/utils/error-handler";
+import { getApiKey } from "./../config/env";
+import { CustomError, handeError } from "./../utils/error-handler";
 
 type Auth = {
   key?: string;
@@ -19,7 +19,7 @@ const isKey = (key?: string) => {
   if (!key)
     throw new CustomError(
       "Please set api key in param or token Bearer header.",
-      401
+      401,
     );
   return key;
 };
@@ -31,7 +31,7 @@ const isCorrectKey = (apiKey: string, userKey: string) => {
 const authMiddleware = (
   request: Request<unknown, unknown, unknown, Auth>,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const apiKey = getApiKey();
   const authHeader = request.headers["authorization"];

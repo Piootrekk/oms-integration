@@ -6,11 +6,11 @@ import {
   parsedOrderIdFilters,
 } from "./order.service";
 import { IdParamDict, WorthQueryParam } from "./order.types";
-import { handeError } from "src/utils/error-handler";
+import { handeError } from "./../../utils/error-handler";
 
 const getOrderByWorthRangeController = async (
   request: Request<unknown, unknown, unknown, WorthQueryParam>,
-  response: Response
+  response: Response,
 ) => {
   try {
     const { minWorth, maxWorth, currency } = request.query;
@@ -18,7 +18,12 @@ const getOrderByWorthRangeController = async (
     const ordersInCSV = await ordersByWorthService(
       convertedProps.currency,
       convertedProps.minWorth,
-      convertedProps.maxWorth
+      convertedProps.maxWorth,
+    );
+    response.setHeader("Content-Type", "text/csv");
+    response.setHeader(
+      "Content-Disposition",
+      "attachment; filename=orders.csv",
     );
     response.status(200).send(ordersInCSV);
   } catch (err) {
@@ -29,12 +34,17 @@ const getOrderByWorthRangeController = async (
 
 const getOrderByIdController = async (
   request: Request<IdParamDict>,
-  response: Response
+  response: Response,
 ) => {
   try {
     const { orderId } = request.params;
     const parsedId = parsedOrderIdFilters(orderId);
     const currentOrderInCSV = await orderByIdService(parsedId);
+    response.setHeader("Content-Type", "text/csv");
+    response.setHeader(
+      "Content-Disposition",
+      "attachment; filename=orders.csv",
+    );
     response.status(200).send(currentOrderInCSV);
   } catch (err) {
     const error = handeError(err);

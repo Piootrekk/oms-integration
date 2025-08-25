@@ -1,7 +1,7 @@
-import { createCSV } from "src/utils/csv/csv-converter";
+import { createCSV } from "./../../utils/csv/csv-converter";
 import { orderByIdRepository, ordersRangeRepository } from "./order.repository";
 import { transformOrderDto, transformOrdersDto } from "./order.dto";
-import { CustomError } from "src/utils/error-handler";
+import { CustomError } from "./../../utils/error-handler";
 
 const orderByIdService = async (orderId: string) => {
   const currnetOrder = await orderByIdRepository(orderId);
@@ -15,7 +15,7 @@ const orderByIdService = async (orderId: string) => {
 const ordersByWorthService = async (
   currency: string,
   minWorth?: number,
-  maxWorth?: number
+  maxWorth?: number,
 ) => {
   const orders = await ordersRangeRepository(currency, minWorth, maxWorth);
   const orderDto = transformOrdersDto(orders);
@@ -34,7 +34,7 @@ const parseToNumber = (valueToParse: string) => {
 const parseOrderRangeFilters = (
   minWorth?: string,
   maxWorth?: string,
-  currency?: string
+  currency?: string,
 ) => {
   const parsed = {
     minWorth: minWorth === undefined ? undefined : parseToNumber(minWorth),

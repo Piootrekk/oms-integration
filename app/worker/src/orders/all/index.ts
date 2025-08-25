@@ -11,8 +11,8 @@ import {
   clearAllOrdersDocs,
   getCountDocsFromOrders,
 } from "@db/orders.query";
-import { getDBConnectionString } from "src/env";
-import { handleErrorToMessage } from "src/utils/error-handler";
+import { getDBConnectionString } from "./../../env";
+import { handleErrorToMessage } from "./../../utils/error-handler";
 import { transformBulkOrdersResults } from "../orders-transform";
 import { getGatewayInstance } from "../gateway-instance";
 
@@ -31,13 +31,13 @@ const missDataWarning = async (gateway: Gateways, db: Db) => {
     console.warn(
       "[Insert all] Potential mismatch detected: some orders may",
       "exist both in the database and in the gateway, but are not fully synchronized.",
-      `${docsCount} DB : ${ordersGatewayCount} gateway.`
+      `${docsCount} DB : ${ordersGatewayCount} gateway.`,
     );
 };
 
 const logError = (err: unknown) => {
   console.error(
-    `[Insert all] ERROR IN INSERTING ALL ORDERS ${handleErrorToMessage(err)}`
+    `[Insert all] ERROR IN INSERTING ALL ORDERS ${handleErrorToMessage(err)}`,
   );
 };
 
