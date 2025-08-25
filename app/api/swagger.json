@@ -1,0 +1,137 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OMS-INTEGRATION",
+    "version": "1.0.0",
+    "description": "API endpoint for OMS to csv"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "CustomSecret"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local development"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/v1/order/{id}": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "Get order by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the order"
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Key parameter, if authorized, key is not required"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CSV file with order details",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Order with ID 123abc not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "Get list of orders (filtered by worth min-max (price optional), returns CSV)",
+        "parameters": [
+          {
+            "name": "minWorth",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Minimum worth filter"
+          },
+          {
+            "name": "maxWorth",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Maximum worth filter"
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Currency filter"
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Key parameter, if authorized, key is not required"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CSV file with orders",
+            "content": {
+              "text/csv": {
+                "schema": { "type": "string", "format": "binary" }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query parameters",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Invalid minWorth value: abc"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

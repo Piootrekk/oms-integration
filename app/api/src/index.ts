@@ -1,12 +1,15 @@
 import express, { type Express } from "express";
 import { closeDb, connectDb } from "./config/db";
 import { router } from "./routes";
+import { applySwagger } from "./config/swagger";
 
 const main = async () => {
   const PORT = 3000;
   const app: Express = express();
   app.use(router);
+  applySwagger(app);
   await connectDb();
+
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });

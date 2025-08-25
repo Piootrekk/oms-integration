@@ -7,11 +7,11 @@ import type {
 import type { Product, OrderData } from "@db/orders.model";
 
 const sumAllOrdersPayment = (payments: OrderBaseCurrency | OrderCurrency) => {
-  return (
+  const total =
     payments.orderDeliveryCost +
     payments.orderInsuranceCost +
-    payments.orderProductsCost
-  );
+    payments.orderProductsCost;
+  return Math.round(total * 100) / 100;
 };
 
 const getProductsFromOrder = (products: OrderProduct[]): Product[] => {

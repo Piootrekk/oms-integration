@@ -61,7 +61,7 @@ const dataRows = (
   delimiter: string
 ): string[] => {
   const datarows = data.map((record) => {
-    if (!record || typeof record !== "object") {
+    if (!record) {
       return headers.map(() => "").join(delimiter);
     }
     return headers

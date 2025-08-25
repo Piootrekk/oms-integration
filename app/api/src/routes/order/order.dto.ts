@@ -8,7 +8,7 @@ type OrderDto = {
 
 const transformOrderDto = (order: OrderDataModel) => {
   const productsSerialized = order.products
-    .map((p) => `(${p.productId}:${p.quantity})`)
+    .map((p) => `(id:${p.productId} quanitity:${p.quantity})`)
     .join(",");
   const orderDto = {
     orderId: order.orderId,

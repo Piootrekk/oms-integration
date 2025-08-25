@@ -1,6 +1,6 @@
-import { config } from "dotenv";
+import { configDotenv } from "dotenv";
 
-config();
+configDotenv();
 
 const getIdosellUrl = () => {
   const { IDOSELL_URL } = process.env;
