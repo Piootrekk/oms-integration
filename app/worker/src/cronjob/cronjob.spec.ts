@@ -1,9 +1,3 @@
-const validateCronExpression = jest.fn();
-const mockNextDate = jest.fn();
-const mockCronJob = {
-  nextDate: mockNextDate,
-} as unknown as CronJob;
-
 import {
   getDatesRage,
   getIntervalTick,
@@ -11,6 +5,12 @@ import {
   validateCronJobString,
 } from "./cronjob";
 import { CronJob } from "cron";
+
+const validateCronExpression = jest.fn();
+const mockNextDate = jest.fn();
+const mockCronJob = {
+  nextDate: mockNextDate,
+} as unknown as CronJob;
 
 describe("validateCronJobString", () => {
   it("should return cronjob string when validation passes", () => {
@@ -24,7 +24,7 @@ describe("validateCronJobString", () => {
       valid: false,
       error: { message: "Invalid format" },
     });
-    expect(() => validateCronJobString("invalid")).toThrow(Error);
+    expect(() => validateCronJobString("invalid****")).toThrow(Error);
   });
 });
 

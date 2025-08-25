@@ -8,9 +8,11 @@
   "scripts": {
     "dev:api": "nodemon --config app/api/nodemon.json",
     "dev:worker": "ts-node -r tsconfig-paths/register -P app/worker/tsconfig.json app/worker/src/index.ts",
-    "build": "tsc --build",
-    "build:api": "tsc --project app/api",
-    "build:worker": "tsc --project app/worker",
+    "build:api": "tsc -b app/api && tsc-alias -p app/api/tsconfig.json",
+    "build:worker": "tsc -b app/worker && tsc-alias -p app/worker/tsconfig.json",
+    "build:share": "tsc -b app/share && tsc-alias -p app/share/tsconfig.json",
+    "build": "tsc -b && npm run alias",
+    "alias": "tsc-alias -p app/api/tsconfig.json && tsc-alias -p app/worker/tsconfig.json && tsc-alias -p app/share/tsconfig.json",
     "start:api": "node app/api/dist/index.js",
     "start:worker": "node app/worker/dist/index.js",
     "test": "jest",
@@ -36,6 +38,7 @@
     "ts-jest": "^29.4.1",
     "ts-jest-resolver": "^2.0.1",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.2"
   },

@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
     "removeComments": true,
@@ -21,7 +22,9 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "composite": true,
+    "declaration": true
   },
   "references": [{ "path": "../share" }],
   "include": ["src/**/*"],

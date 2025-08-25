@@ -1,10 +1,12 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "target": "ES2023",
     "sourceMap": true,
+    "declarationMap": true,
     "rootDir": "mongo-lib",
     "composite": true,
     "incremental": true,
@@ -20,7 +22,10 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "@db/*": ["mongo-lib/*"]
+    }
   },
 
   "include": ["mongo-lib/**/*"]

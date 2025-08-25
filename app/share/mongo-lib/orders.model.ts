@@ -16,4 +16,4 @@ type OrderDataModel = {
   _id?: ObjectId;
 } & OrderData;
 
-export { OrderData, Product, OrderDataModel };
+export type { OrderData, Product, OrderDataModel };
