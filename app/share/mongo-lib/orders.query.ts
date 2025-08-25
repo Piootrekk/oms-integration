@@ -35,7 +35,7 @@ const isEmptyOrders = async (db: Db) => {
 
 const getSelectedOrdersByStatuses = async (
   db: Db,
-  statuses: OrderData["status"][]
+  statuses: OrderData["status"][],
 ) => {
   const orders = db.collection<OrderDataModel>(ORDERS_COLLECTION_NAME);
   const filter = {
@@ -67,23 +67,27 @@ const getOrdersByPriceRange = async (
   db: Db,
   currency: string,
   minWorth?: number,
-  maxPrice?: number
+  maxPrice?: number,
 ) => {
   const orders = db.collection<OrderDataModel>(ORDERS_COLLECTION_NAME);
-  const filter = {
-    price: {
-      $gte: minWorth,
-      $lte: maxPrice,
-    },
-    currency: currency,
-  } satisfies Filter<OrderDataModel>;
+  const filter: Filter<OrderDataModel> = { currency };
+
+  if (minWorth !== undefined || maxPrice !== undefined) {
+    filter.price = {};
+    if (minWorth !== undefined) {
+      filter.price.$gte = minWorth;
+    }
+    if (maxPrice !== undefined) {
+      filter.price.$lte = maxPrice;
+    }
+  }
   const ordersDocs = await orders.find(filter).toArray();
   return ordersDocs;
 };
 
 const updateOrdersWithNewState = async (
   db: Db,
-  newOrdersProps: Pick<OrderData, "orderId" | "status">[]
+  newOrdersProps: Pick<OrderData, "orderId" | "status">[],
 ) => {
   const orders = db.collection<OrderDataModel>(ORDERS_COLLECTION_NAME);
   const bulkOperations = newOrdersProps.map((orderUpdate) => ({

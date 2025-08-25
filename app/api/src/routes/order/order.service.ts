@@ -41,12 +41,22 @@ const parseOrderRangeFilters = (
     maxWorth: maxWorth === undefined ? undefined : parseToNumber(maxWorth),
     currency: currency ? currency : "PLN",
   };
+  validateGreaterMinMaxWorth(parsed.minWorth, parsed.maxWorth);
   return parsed;
 };
 
 const parsedOrderIdFilters = (orderId?: string) => {
   if (orderId === undefined) throw new CustomError("OrderId is required", 400);
   return orderId;
+};
+
+const validateGreaterMinMaxWorth = (
+  minWorth: number | undefined,
+  maxWorth: number | undefined,
+) => {
+  if (minWorth === undefined || maxWorth === undefined) return;
+  if (minWorth > maxWorth)
+    throw new CustomError("MinWorth is higher then maxWorth", 400);
 };
 
 export {

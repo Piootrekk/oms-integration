@@ -25,7 +25,7 @@ const isKey = (key?: string) => {
 };
 
 const isCorrectKey = (apiKey: string, userKey: string) => {
-  if (userKey !== apiKey) throw new CustomError("Invalid key provided", 401);
+  if (userKey !== apiKey) throw new CustomError("Invalid key provided.", 401);
 };
 
 const authMiddleware = (
