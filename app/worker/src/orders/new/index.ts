@@ -1,4 +1,3 @@
-import { dbSession } from "@db/connection";
 import { getGatewayInstance } from "../gateway-instance";
 import {
   fetchAllOrders,
@@ -7,7 +6,8 @@ import {
 } from "../idosell-gateway";
 import { getDBConnectionString } from "../../env";
 import { transformBulkOrdersResults } from "../orders-transform";
-import { insertManyOrders } from "@db/orders.query";
+import { insertManyOrders } from "@shared/mongo-lib/orders.query";
+import { dbSession } from "@shared/mongo-lib/connection";
 
 const manageNewOrders = async (
   chunkOrders: SearchOrdersResponse,

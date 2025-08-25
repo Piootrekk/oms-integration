@@ -1,4 +1,4 @@
-import { OrderDataModel } from "@db/orders.model";
+import { OrderDataModel } from "@shared/mongo-lib/orders.model";
 
 type OrderDto = {
   orderId: string;

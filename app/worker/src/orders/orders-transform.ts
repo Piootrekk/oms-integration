@@ -4,7 +4,7 @@ import type {
   OrderCurrency,
   OrderProduct,
 } from "./orders-external.types";
-import type { Product, OrderData } from "@db/orders.model";
+import type { Product, OrderData } from "@shared/mongo-lib/orders.model";
 
 const sumAllOrdersPayment = (payments: OrderBaseCurrency | OrderCurrency) => {
   const total =

@@ -1,7 +1,4 @@
-import express, { type Express } from "express";
 import { closeDb, connectDb } from "./config/db";
-import { router } from "./routes";
-import { applySwagger } from "./config/swagger";
 import { createApp } from "./app";
 
 const main = async () => {

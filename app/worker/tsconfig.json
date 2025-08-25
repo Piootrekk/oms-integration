@@ -6,9 +6,6 @@
     "rootDir": "./src",
     "tsBuildInfoFile": "./build-cache/tsconfig.tsbuildinfo"
   },
-  "paths": {
-    "@shared/*": ["../shared/src/*"]
-  },
   "include": ["src"],
   "references": [{ "path": "../shared" }]
 }

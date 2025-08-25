@@ -5,8 +5,11 @@ import {
   getSerchRequestSelectedStatuses,
   SearchOrdersResponse,
 } from "../idosell-gateway";
-import { getOrdersByIds, updateOrdersWithNewState } from "@db/orders.query";
-import { dbSession } from "@db/connection";
+import {
+  getOrdersByIds,
+  updateOrdersWithNewState,
+} from "@shared/mongo-lib/orders.query";
+import { dbSession } from "@shared/mongo-lib/connection";
 import { getOrdersDtoWithNewStatuses } from "./compare";
 import { handleErrorToMessage } from "./../../utils/error-handler";
 import { OrderDto } from "./compare.types";

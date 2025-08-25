@@ -1,7 +1,7 @@
 import { Db, MongoClient } from "mongodb";
 
 const getDbConnection = async (
-  connectionString: string
+  connectionString: string,
 ): Promise<MongoClient> => {
   const client = new MongoClient(connectionString, {
     connectTimeoutMS: 10000,
@@ -18,7 +18,7 @@ const disconectDb = async (client: MongoClient) => {
 
 const dbSession = async (
   dbConString: string,
-  actionDbCallback: (db: Db) => Promise<void> | void
+  actionDbCallback: (db: Db) => Promise<void> | void,
 ) => {
   const dbClient = await getDbConnection(dbConString);
   try {

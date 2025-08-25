@@ -1,17 +1,20 @@
 import { getDbInstance } from "./../../config/db";
-import { getOrderById, getOrdersByPriceRange } from "@db/orders.query";
+import {
+  getOrderById,
+  getOrdersByPriceRange,
+} from "@shared/mongo-lib//orders.query";
 
 const ordersRangeRepository = async (
   currency: string,
   minWorth?: number,
-  maxWorth?: number
+  maxWorth?: number,
 ) => {
   const db = getDbInstance();
   const rangedOrders = await getOrdersByPriceRange(
     db,
     currency,
     minWorth,
-    maxWorth
+    maxWorth,
   );
   return rangedOrders;
 };

@@ -1,4 +1,4 @@
-import { dbSession, type Db } from "@db/connection";
+import { dbSession, type Db } from "@shared/mongo-lib/connection";
 import {
   searchAllAmountsOrders,
   type Gateways,
@@ -10,7 +10,7 @@ import {
   isEmptyOrders,
   clearAllOrdersDocs,
   getCountDocsFromOrders,
-} from "@db/orders.query";
+} from "@shared/mongo-lib/orders.query";
 import { getDBConnectionString } from "./../../env";
 import { handleErrorToMessage } from "./../../utils/error-handler";
 import { transformBulkOrdersResults } from "../orders-transform";
@@ -54,7 +54,7 @@ const isEmptyInDb = async (db: Db, gateway: Gateways) => {
 const insertAllOrders = async () => {
   const gatewayInstance = getGatewayInstance();
   const conDbString = getDBConnectionString();
-  await dbSession(conDbString, async (db) => {
+  await dbSession(conDbString, async (db: Db) => {
     try {
       const isEmpty = await isEmptyInDb(db, gatewayInstance);
       if (!isEmpty) return;

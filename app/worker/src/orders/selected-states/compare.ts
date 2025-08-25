@@ -1,15 +1,15 @@
-import { OrderData } from "@db/orders.model";
+import { OrderData } from "@shared/mongo-lib/orders.model";
 import { SearchOrdersResponse } from "../idosell-gateway";
 import type { OrderDto } from "./compare.types";
 
 const getOrdersDtoWithNewStatuses = (
   ordersGateway: SearchOrdersResponse["Results"],
-  ordersDb: OrderData[]
+  ordersDb: OrderData[],
 ): OrderDto[] => {
   const updatedOrders = ordersGateway
     .map((orderGateway) => {
       const matchingDbOrder = ordersDb.find((orderDb) =>
-        matchOrdersIds(orderGateway, orderDb)
+        matchOrdersIds(orderGateway, orderDb),
       );
       if (matchingDbOrder && !isSameStatus(orderGateway, matchingDbOrder)) {
         return transformToOrderDto(orderGateway, matchingDbOrder);
@@ -21,7 +21,7 @@ const getOrdersDtoWithNewStatuses = (
 
 const transformToOrderDto = (
   orderGateway: SearchOrdersResponse["Results"][number],
-  orderDb: OrderData
+  orderDb: OrderData,
 ): OrderDto => {
   return {
     orderId: orderDb.orderId,
@@ -32,14 +32,14 @@ const transformToOrderDto = (
 
 const matchOrdersIds = (
   orderGateway: SearchOrdersResponse["Results"][number],
-  orderDb: OrderData
+  orderDb: OrderData,
 ) => {
   return orderGateway.orderId === orderDb.orderId;
 };
 
 const isSameStatus = (
   orderGateway: SearchOrdersResponse["Results"][number],
-  orderDb: OrderData
+  orderDb: OrderData,
 ): boolean => {
   return orderGateway.orderDetails.orderStatus === orderDb.status;
 };

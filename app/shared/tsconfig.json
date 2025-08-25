@@ -5,8 +5,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
-    "declarationMap": true,
-    "tsBuildInfoFile": "./build-cache/tsconfig.tsbuildinfo"
+    "declarationMap": true
   },
   "include": ["src"],
   "exclude": ["dist", "node_modules"]

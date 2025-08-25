@@ -1,4 +1,4 @@
-import { getIdoSellApiKey, getIdosellUrl } from "src/env";
+import { getIdoSellApiKey, getIdosellUrl } from "../env";
 import { createGatewayInstance } from "./idosell-gateway";
 
 const getGatewayInstance = () => {
