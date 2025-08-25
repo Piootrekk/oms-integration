@@ -66,3 +66,4 @@ dist-ssr
 mongodb-data
 .api
 tsconfig.tsbuildinfo
+build-cache

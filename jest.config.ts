@@ -12,7 +12,7 @@ const config: Config = {
         "^.+\\.ts$": "ts-jest",
       },
       moduleNameMapper: {
-        "^@db/(.*)$": "<rootDir>/../share/mongo-lib/$1",
+        "^@shared/(.*)$": "<rootDir>/../shared/src/$1",
       },
     },
     {
@@ -25,12 +25,12 @@ const config: Config = {
         "^.+\\.ts$": "ts-jest",
       },
       moduleNameMapper: {
-        "^@db/(.*)$": "<rootDir>/../share/mongo-lib/$1",
+        "^@shared/(.*)$": "<rootDir>/../shared/src/$1",
       },
     },
     {
       displayName: "mongo-lib",
-      rootDir: "./app/share/mongo-lib",
+      rootDir: "./app/shared/src",
       preset: "ts-jest",
       testEnvironment: "node",
       testMatch: ["**/__tests__/**/*.ts", "**/*.test.ts", "**/*.spec.ts"],

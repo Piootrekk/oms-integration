@@ -1,32 +1,14 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "removeComments": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
-    "sourceMap": true,
+    "composite": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "baseUrl": ".",
-    "paths": {
-      "@db/*": ["../share/mongo-lib/*"]
-    },
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false,
-    "strictBindCallApply": true,
-    "noFallthroughCasesInSwitch": false,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "declaration": true,
-    "composite": true
+    "tsBuildInfoFile": "./build-cache/tsconfig.tsbuildinfo"
   },
-  "references": [{ "path": "../share" }],
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "paths": {
+    "@shared/*": ["../shared/src/*"]
+  },
+  "include": ["src"],
+  "references": [{ "path": "../shared" }]
 }

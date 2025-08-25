@@ -1,5 +1,5 @@
-import { disconectDb, getDbConnection } from "@db/connection";
-import type { MongoClient, Db } from "@db/connection";
+import { disconectDb, getDbConnection } from "@shared/mongo-lib/connection";
+import type { MongoClient, Db } from "@shared/mongo-lib/connection";
 import { getDBConnectionString } from "./env";
 
 const conString = getDBConnectionString();

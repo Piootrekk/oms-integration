@@ -4,11 +4,10 @@
     "composite": true,
     "outDir": "./dist",
     "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
     "tsBuildInfoFile": "./build-cache/tsconfig.tsbuildinfo"
   },
-  "paths": {
-    "@shared/*": ["../shared/src/*"]
-  },
   "include": ["src"],
-  "references": [{ "path": "../shared" }]
+  "exclude": ["dist", "node_modules"]
 }
