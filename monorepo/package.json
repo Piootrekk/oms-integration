@@ -18,17 +18,25 @@
     "build": "tsc --build --verbose tsconfig.build.json",
     "start:api": "npm run start --workspace packages/api",
     "start:worker": "npm run start --workspace packages/worker",
-    "clear-all": "npm run clear --workspaces"
-  },
-  "devDependencies": {
-    "@types/node": "^24.3.0",
-    "rimraf": "^6.0.1",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.9.2"
+    "clear-all": "npm run clear --workspaces",
+    "test:api:unit": "jest --config packages/api/jest.unit.config.ts",
+    "test:api:int": "jest --config packages/api/jest.int.config.ts",
+    "test:worker:unit": "jest --config packages/worker/jest.unit.config.ts",
+    "test:worker:int": "jest --config packages/worker/jest.int.config.ts"
   },
   "dependencies": {
     "dotenv": "^17.2.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.3.0",
+    "jest": "^30.0.5",
+    "rimraf": "^6.0.1",
+    "ts-jest": "^29.4.1",
+    "ts-jest-resolver": "^2.0.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.9.2"
   },
   "packageManager": "npm@11.5.2"
 }

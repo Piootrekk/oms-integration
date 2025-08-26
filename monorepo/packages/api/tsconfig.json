@@ -12,6 +12,6 @@
       "path": "../infra"
     }
   ],
-  "include": ["src"],
+  "include": ["src", "src/integration"],
   "exclude": ["node_modules", "dist"]
 }

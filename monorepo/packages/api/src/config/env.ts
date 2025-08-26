@@ -1,6 +1,6 @@
 import { configDotenv } from "dotenv";
 
-configDotenv({ path: "../../.env" });
+configDotenv();
 
 const getDBConnectionString = () => {
   const { DB_CONNECTION_STRING } = process.env;
