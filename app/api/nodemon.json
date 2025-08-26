@@ -1,7 +1,0 @@
-{
-  "watch": ["src", "swagger.json"],
-  "ext": "ts,json",
-  "ignore": ["src/**/*.spec.ts", "src/**/*.e2e.ts"],
-  "exec": "ts-node -r tsconfig-paths/register -P app/api/tsconfig.json app/api/src/index.ts",
-  "cwd": "../.."
-}

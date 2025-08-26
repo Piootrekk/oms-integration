@@ -1,0 +1,34 @@
+{
+  "name": "shop-orders",
+  "version": "1.0.0",
+  "description": "",
+  "license": "UNLICENSED",
+  "author": "Piotr Wilkowiecki",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev --workspace packages/api",
+    "dev:worker": "npm run dev --workspace packages/worker",
+    "build:api": "npm run build --workspace packages/api",
+    "build:worker": "npm run build --workspace packages/worker",
+    "build:infra": "npm run build --workspace packages/infra",
+    "build:all": "npm run build --workspaces",
+    "build": "tsc --build --verbose tsconfig.build.json",
+    "start:api": "npm run start --workspace packages/api",
+    "start:worker": "npm run start --workspace packages/worker",
+    "clear-all": "npm run clear --workspaces"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1"
+  },
+  "packageManager": "npm@11.5.2"
+}

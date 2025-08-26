@@ -1,0 +1,22 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "ts-node -r tsconfig-paths/register src/index.ts",
+    "build": "tsc",
+    "clear": "rimraf dist tsconfig.tsbuildinfo",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@oms/infra": "1.0.0",
+    "cron": "^4.3.3",
+    "idosell": "^0.3.20"
+  }
+}
