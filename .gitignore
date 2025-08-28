@@ -67,3 +67,4 @@ mongodb-data
 .api
 tsconfig.tsbuildinfo
 build-cache
+.env.docker

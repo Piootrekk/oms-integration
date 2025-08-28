@@ -1,6 +1,12 @@
 import { configDotenv } from "dotenv";
+import path from "path";
 
-configDotenv();
+const rootPath = process.cwd();
+const monorepoPath = path.resolve(rootPath, "../..");
+configDotenv({
+  path: [path.join(monorepoPath, ".env"), ".env"],
+  override: false,
+});
 
 const getDBConnectionString = () => {
   const { DB_CONNECTION_STRING } = process.env;

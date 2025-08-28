@@ -18,7 +18,7 @@ Built with Express.js, MongoDB, and Cron.
 git clone  https://github.com/Piootrekk/oms-integration.git
 ```
 
-2. Make sure to create .env file in root based on .env.example
+2. Make sure to create .env file in root (monorepo directory) based on .env.example
 
 3. Run docker-compose
 
@@ -26,4 +26,14 @@ git clone  https://github.com/Piootrekk/oms-integration.git
 docker-compose up --build
 ```
 
-4. Without docker: run npm i and run command commands: npm run dev:worker npm run dev:api (check package.json)
+4. Without docker:
+
+   4.1 Make sure you are inside the monorepo directory.
+
+   4.2 Run the command: `npm install`.
+
+   4.3 Ensure that the `.env` file is correctly set up and database is running.
+
+   4.4 Build the infra package with: `npm run build:infra`.
+
+   4.5 Run the worker and API with: `npm run dev:api` and `npm run dev:worker`.
