@@ -27,14 +27,14 @@ services:
       - mongo_db
     restart: always
   worker:
-      build:
-        context: .
-        dockerfile: packages/worker/dockerfile
-      image: worker:latest
-      environment:
-        - NODE_ENV=production
-      env_file:
-        - .env
-      depends_on:
-        - mongo_db
-      restart: always
+    build:
+      context: .
+      dockerfile: packages/worker/dockerfile
+    image: worker:latest
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    depends_on:
+      - mongo_db
+    restart: always
