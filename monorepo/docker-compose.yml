@@ -10,6 +10,24 @@ services:
       - MONGO_INITDB_DATABASE=${DB_NAME:-idosell}
       - MONGO_INITDB_ROOT_USERNAME=${DB_USER:-root}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD:-root}
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mongosh",
+          "--quiet",
+          "127.0.0.1:27017/admin",
+          "-u",
+          "${DB_USER:-root}",
+          "-p",
+          "${DB_PASSWORD:-root}",
+          "--eval",
+          "db.adminCommand('ping')",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     restart: always
 
   api:
@@ -24,7 +42,8 @@ services:
     env_file:
       - .env
     depends_on:
-      - mongo_db
+      mongo_db:
+        condition: service_healthy
     restart: always
   worker:
     build:
@@ -36,5 +55,6 @@ services:
     env_file:
       - .env
     depends_on:
-      - mongo_db
+      mongo_db:
+        condition: service_healthy
     restart: always
